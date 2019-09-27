@@ -77,6 +77,15 @@ describe('Listing Schema Unit Tests', function() {
       })
     });
 
+    it('throws an error when address not provided', function(done){
+      new Listing({
+        address: listing.address
+      }).save(function(err){
+        should.exist(err);
+        done();
+      })
+    });
+
   });
 
   afterEach(function(done) {

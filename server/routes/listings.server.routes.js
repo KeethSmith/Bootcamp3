@@ -16,6 +16,9 @@ var listings = require('../controllers/listings.server.controller.js'),
  
   Note: the listings variable above and the file it is connected to help you trace
  */
+router.route('/api/listings')
+  .get(listings.list);
+
 router.route('/')
   .get(listings.list)
   .post(getCoordinates, listings.create);
