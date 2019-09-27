@@ -1,5 +1,6 @@
-var config = require('../config/config'), 
+var config = require('../config/config'); 
     request = require('request');
+    var NodeGeocoder = require('node-geocoder');
 
 
 
@@ -12,16 +13,34 @@ module.exports = function(req, res, next) {
       var addressTemp4 = addressTemp3.replace(/,/g , "%2C");
       
     //Setup your options q and key are provided. Feel free to add others to make the JSON response less verbose and easier to read 
-    var options = { 
+    var options = NodeGeocoder({ 
       q: addressTemp4,
       key: config.openCage.key,  
-    }
+    })
 
     //Setup your request using URL and options - see ? for format
     request({
-      url: 'https://api.opencagedata.com/geocode/v1/json', 
+      url: 'https://api.opencagedata.com/geocode/v1/json?q='+ options.q + '&key=' + options.key, 
       qs: options
       }, function(error, response, body) {
+
+        options.batchGeocode([options.q], function (err, results) {
+          var place = data.results[0];
+          // Return an array of type {error: false, value: []}
+          console.log(place.geometry);
+          req.results = JSON.parse(place.geometry);
+        });
+
+
+
+
+
+
+
+
+
+
+
         //For ideas about response and error processing see https://opencagedata.com/tutorials/geocode-in-nodejs
         
         //JSON.parse to get contents. Remember to look at the response's JSON format in open cage data
