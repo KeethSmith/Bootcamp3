@@ -37,6 +37,7 @@ exports.read = function(req, res) {
   /* send back the listing as json from the request */
   var listing = req.listing;
   res.json(listing);
+  
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
