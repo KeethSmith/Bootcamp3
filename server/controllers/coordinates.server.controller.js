@@ -31,13 +31,6 @@ module.exports = function(req, res, next) {
 
           req.results = info.results[0].geometry;
 
-          console.log("WORKS");
-          console.log("------------------------------");
-
-          
-
-
-
         }
 
         //For ideas about response and error processing see https://opencagedata.com/tutorials/geocode-in-nodejs
@@ -54,10 +47,6 @@ module.exports = function(req, res, next) {
         next();
     });
   } else {
-
-    console.log("RESULTS NEXT");
-    console.log("------------------------------");
-
     next();
   }
 };  

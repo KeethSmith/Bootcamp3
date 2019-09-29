@@ -36,14 +36,7 @@ exports.create = function(req, res) {
       longitude: req.results.lng
     };
   }
-  // else 
-  //   {
-  //     listing.coordinates = {
-  //       latitude: Coordinates.lat, 
-  //       longitude: Coordinates.lng
-  //     };
-  //   }
- 
+
   /* Then save the listing */
   listing.save(function(err) {
     if(err) {
@@ -51,7 +44,6 @@ exports.create = function(req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      console.log(listing)
     }
   });
 };
@@ -59,7 +51,8 @@ exports.create = function(req, res) {
 /* Show the current listing */
 exports.read = function(req, res) {
   /* send back the listing as json from the request */
-  res.json(req.listing);
+  var listing = req.listing;
+  res.json(listing);
 };
 
 /* Retreive all the directory listings, sorted alphabetically by listing code */
@@ -102,8 +95,6 @@ exports.update = function(req, res) {
       res.status(400).send(err);
     } else {
       res.json(listing);
-      console.log(listing);
-
     }
   });
 
