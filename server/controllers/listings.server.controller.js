@@ -4,22 +4,6 @@ var mongoose = require('mongoose'),
     Listing = require('../models/listings.server.model.js'),
     coordinates = require('./coordinates.server.controller.js');
     
-/*
-  In this file, you should use Mongoose queries in order to retrieve/add/remove/update listings.
-  On an error you should send a 404 status code, as well as the error message. 
-  On success (aka no error), you should send the listing(s) as JSON in the response.
-
-  HINT: if you are struggling with implementing these functions refer back to this tutorial 
-  https://www.callicoder.com/node-js-express-mongodb-restful-crud-api-tutorial/
-  or
-  https://medium.com/@dinyangetoh/how-to-build-simple-restful-api-with-nodejs-expressjs-and-mongodb-99348012925d
-  
-
-  If you are looking for more understanding of exports and export modules - 
-  https://www.sitepoint.com/understanding-module-exports-exports-node-js/
-  or
-  https://adrianmejia.com/getting-started-with-node-js-modules-require-exports-imports-npm-and-beyond/
- */
 
 /* Create a listing */
 exports.create = function(req, res) {
@@ -122,8 +106,6 @@ exports.delete = function(req, res, next, id) {
   /* Add your code to remove the listings */
 
 };
-
-
 
 /* 
   Middleware: find a listing by its ID, then pass it to the next request handler. 
