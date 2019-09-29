@@ -1,6 +1,6 @@
-var config = require('../config/config'); 
+var config = require('../config/config'), 
     request = require('request');
-    var NodeGeocoder = require('node-geocoder');
+
 
 
 
@@ -13,33 +13,32 @@ module.exports = function(req, res, next) {
       var addressTemp4 = addressTemp3.replace(/,/g , "%2C");
       
     //Setup your options q and key are provided. Feel free to add others to make the JSON response less verbose and easier to read 
-    var options = NodeGeocoder({ 
+    var options = { 
       q: addressTemp4,
-      key: config.openCage.key,  
-    })
+      key: config.openCage.key, 
+      pretty: 1,
+      limit: 1, 
+    }
 
     //Setup your request using URL and options - see ? for format
     request({
-      url: 'https://api.opencagedata.com/geocode/v1/json?q='+ options.q + '&key=' + options.key, 
+      url: 'https://api.opencagedata.com/geocode/v1/json', 
       qs: options
       }, function(error, response, body) {
 
-        options.batchGeocode([options.q], function (err, results) {
-          var place = data.results[0];
-          // Return an array of type {error: false, value: []}
-          console.log(place.geometry);
-          req.results = JSON.parse(place.geometry);
-        });
+        if (!error && response.statusCode == 200) {
+          const info = JSON.parse(body);
+
+          req.results = info.results[0].geometry;
+
+          console.log("WORKS");
+          console.log("------------------------------");
+
+          
 
 
 
-
-
-
-
-
-
-
+        }
 
         //For ideas about response and error processing see https://opencagedata.com/tutorials/geocode-in-nodejs
         
@@ -48,13 +47,17 @@ module.exports = function(req, res, next) {
         /*Save the coordinates in req.results -> 
           this information will be accessed by listings.server.model.js 
           to add the coordinates to the listing request to be saved to the database.
-
           Assumption: if we get a result we will take the coordinates from the first result returned
         */
-        //  req.results = stores you coordinates
+        //  req.results = stores your coordinates
+
         next();
     });
   } else {
+
+    console.log("RESULTS NEXT");
+    console.log("------------------------------");
+
     next();
   }
 };  

@@ -31,6 +31,7 @@ router.route('/:listingId')
   .put(getCoordinates, listings.update)
   .delete(listings.delete);
 
+
 /*
   The 'router.param' method allows us to specify middleware we would like to use to handle 
   requests with a parameter.
